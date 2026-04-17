@@ -1,70 +1,80 @@
 .container-cadastro-usuario {
-    width: 100%;
-    min-height: 90vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  .form-cadastro-usuario {
-    width: 100%;
-    max-width: 450px;
-    background-color: #fff;
-    border: 1px solid #dcdcdc;
-    border-radius: 8px;
-    padding: 32px;
-  }
-  
-  .form-cadastro-usuario h2 {
-    text-align: center;
-    margin-bottom: 24px;
-    color: #111;
-  }
-  
-  .form-cadastro-usuario label {
-    display: block;
-    margin-bottom: 6px;
-    margin-top: 14px;
-    font-weight: 600;
-    font-size: 14px;
-  }
-  
-  .form-cadastro-usuario input,
-  .form-cadastro-usuario select {
-    width: 100%;
-    padding: 10px 12px;
-    border: 1px solid #bbb;
-    border-radius: 6px;
-    font-size: 14px;
-    background-color: #fff;
-    color: #222;
-  }
-  
-  .form-cadastro-usuario input:focus,
-  .form-cadastro-usuario select:focus {
-    outline: none;
-    border-color: #666;
-  }
-  
-  .acoes-cadastro-usuario {
-    display: flex;
-    gap: 10px;
-    margin-top: 24px;
-  }
-  
-  .acoes-cadastro-usuario button {
-    flex: 1;
-    padding: 12px;
-    background-color: #222;
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  .acoes-cadastro-usuario button:hover {
-    background-color: #444;
-  }
+  width: 100%;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  background: linear-gradient(120deg, #f4f6ff, #eef1ff);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.form-cadastro-usuario {
+  width: 100%;
+  max-width: 480px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 35px 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(6px);
+}
+
+.form-cadastro-usuario h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1a1a5e;
+}
+
+.form-cadastro-usuario label {
+  display: block;
+  margin-bottom: 6px;
+  margin-top: 14px;
+  font-weight: 600;
+  font-size: 13px;
+  color: #2c3e50;
+}
+
+.form-cadastro-usuario input,
+.form-cadastro-usuario select {
+  width: 100%;
+  padding: 11px 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  background-color: #f5f7ff;
+  color: #2c3e50;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+}
+
+.form-cadastro-usuario input:focus,
+.form-cadastro-usuario select:focus {
+  outline: none;
+  background-color: #fff;
+  box-shadow: 0 0 0 2px rgba(58, 58, 255, 0.2);
+}
+
+.acoes-cadastro-usuario {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.acoes-cadastro-usuario button {
+  flex: 1;
+  padding: 12px;
+  background: linear-gradient(270deg, #3e3eb9, #3a3aff);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(58, 58, 255, 0.3);
+  transition: all 0.2s ease;
+}
+
+.acoes-cadastro-usuario button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(58, 58, 255, 0.4);
+}

@@ -32,7 +32,7 @@ export default function EditarUsuario() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-  
+
     if (
       Number(usuarioLogado?.id) === Number(id) &&
       tipo !== "admin"
@@ -40,7 +40,7 @@ export default function EditarUsuario() {
       alert("Você não pode alterar seu próprio tipo de admin");
       return;
     }
-  
+
     try {
       await api.put(`/usuarios/${id}`, {
         nome,
@@ -48,13 +48,13 @@ export default function EditarUsuario() {
         tipo,
         usuarioLogadoId: usuarioLogado.id
       });
-  
+
       if (novaSenha.trim()) {
         await api.put(`/usuarios/${id}/senha`, {
           novaSenha
         });
       }
-  
+
       alert("Usuário atualizado com sucesso");
       navigate("/usuarios");
     } catch (error) {
@@ -86,12 +86,12 @@ export default function EditarUsuario() {
 
         <label>Tipo</label>
         <select
-            value={tipo}
-            onChange={(e) => setTipo(e.target.value)}
-            disabled={Number(usuarioLogado?.id) === Number(id)} //impedir que apareça o select de tipo para usuário admin editando o próprio usuário 
+          value={tipo}
+          onChange={(e) => setTipo(e.target.value)}
+          disabled={Number(usuarioLogado?.id) === Number(id)} //impedir que apareça o select de tipo para usuário admin editando o próprio usuário 
         >
-            <option value="funcionario">Funcionário</option>
-            <option value="admin">Admin</option>
+          <option value="funcionario">Funcionário</option>
+          <option value="admin">Admin</option>
         </select>
 
         <label>Nova senha (opcional)</label>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "./ListaOS.css";
+import { FaSignOutAlt, FaEllipsisH, FaTimesCircle, FaCheck, FaClock } from "react-icons/fa";
 
 export default function ListaOS() {
   const [ordens, setOrdens] = useState([]);
@@ -35,11 +36,11 @@ export default function ListaOS() {
 
   function formatarDataParaInput(dataString) {
     const data = new Date(dataString);
-  
+
     const ano = data.getFullYear();
     const mes = String(data.getMonth() + 1).padStart(2, "0");
     const dia = String(data.getDate()).padStart(2, "0");
-  
+
     return `${ano}-${mes}-${dia}`;
   }
 
@@ -47,13 +48,13 @@ export default function ListaOS() {
     const projetoOk = os.nome_projeto
       .toLowerCase()
       .includes(filtroProjeto.toLowerCase());
-  
+
     const statusOk = filtroStatus ? os.status === filtroStatus : true;
-  
+
     const dataOk = filtroData
       ? formatarDataParaInput(os.data_lancamento) === filtroData
       : true;
-  
+
     return projetoOk && statusOk && dataOk;
   });
 
@@ -80,8 +81,9 @@ export default function ListaOS() {
                 Gerenciar Usuários
               </button>
             )}
-            
-            <button type="button" onClick={handleLogout}>
+
+            <button type="button" className="button-diversi" onClick={handleLogout}>
+              <FaSignOutAlt />
               Sair
             </button>
           </div>
@@ -113,7 +115,7 @@ export default function ListaOS() {
           </div>
 
           <div className="campo-filtro">
-            <label>Filtrar por data de lançamento</label>
+            <label>Filtrar por data</label>
             <input
               type="date"
               value={filtroData}
@@ -123,13 +125,13 @@ export default function ListaOS() {
         </div>
 
         <div className="tabela-wrapper">
-          <table>
+          <table className="tabela">
             <thead>
               <tr>
                 <th>ID</th>
                 <th>Projeto</th>
                 <th>Status</th>
-                <th>Data de lançamento</th>
+                <th>Data</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -138,19 +140,31 @@ export default function ListaOS() {
                 ordensFiltradas.map((os) => (
                   <tr key={os.id}>
                     <td>{os.id}</td>
-                    <td>{os.nome_projeto}</td>
+                    <td style={{ fontWeight: 'bold' }}>{os.nome_projeto}</td>
                     <td>
                       <span className={`status-os status-${os.status}`}>
                         {os.status}
+                        {os.status === 'recusada' && (
+                          <FaTimesCircle />
+                        )}
+                        {os.status === 'aprovada' && (
+                          <FaCheck />
+                        )}
+                        {os.status === 'pendente' && (
+                          <FaClock />
+                        )}
                       </span>
                     </td>
-                    <td>{new Date(os.data_lancamento).toLocaleString("pt-BR")}</td>
+                    <td>
+                      {new Date(os.data_lancamento).toLocaleDateString("pt-BR")}
+                    </td>
                     <td>
                       <button
+                        className="piu"
                         type="button"
                         onClick={() => navigate(`/ordens/${os.id}`)}
                       >
-                        Ver detalhes
+                        <FaEllipsisH />
                       </button>
                     </td>
                   </tr>

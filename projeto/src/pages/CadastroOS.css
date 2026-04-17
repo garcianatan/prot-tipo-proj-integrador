@@ -5,9 +5,9 @@
 }
 
 body {
-  background-color: #f4f4f4;
+  background: linear-gradient(135deg, #eef2ff, #f4f7ff);
   font-family: Arial, Helvetica, sans-serif;
-  color: #222;
+  color: #1f2a38;
 }
 
 .container-os {
@@ -19,10 +19,11 @@ body {
 .cadastro-os-form {
   width: 100%;
   max-width: 900px;
-  background-color: #fff;
+  background: rgba(255, 255, 255, 0.9);
   padding: 32px;
-  border: 1px solid #dcdcdc;
-  border-radius: 8px;
+  border-radius: 25px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(8px);
 }
 
 .topo-cadastro-os {
@@ -35,44 +36,36 @@ body {
 }
 
 .topo-cadastro-os h2 {
-  margin: 0;
-  font-size: 28px;
-  color: #111;
+  font-size: 26px;
+  color: #1a1a5e;
 }
 
 .topo-cadastro-os button {
-  width: auto;
-  margin-top: 0;
-  padding: 10px 14px;
-  background-color: #222;
-  color: #fff;
+  padding: 10px 16px;
   border: none;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: bold;
+  border-radius: 50px;
   cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+  background: linear-gradient(270deg, #3e3eb9, #3a3aff);
+  box-shadow: 0 6px 15px rgba(58, 58, 255, 0.4);
 }
 
 .topo-cadastro-os button:hover {
-  background-color: #444;
+  transform: translateY(-2px);
 }
 
 .campo-obrigatorio {
-  color: #c62828;
+  color: #e93030;
   font-weight: bold;
-}
-
-.cadastro-os-form h2 {
-  font-size: 28px;
-  color: #111;
 }
 
 .cadastro-os-form h3 {
   margin-top: 28px;
   margin-bottom: 14px;
-  font-size: 18px;
-  color: #222;
-  border-bottom: 1px solid #ddd;
+  font-size: 16px;
+  color: #1a1a5e;
+  border-bottom: 1px solid rgba(58, 58, 255, 0.2);
   padding-bottom: 6px;
 }
 
@@ -82,6 +75,7 @@ body {
   margin-top: 14px;
   font-weight: 600;
   font-size: 14px;
+  color: #2c3e50;
 }
 
 .cadastro-os-form input,
@@ -89,18 +83,20 @@ body {
 .cadastro-os-form textarea {
   width: 100%;
   padding: 10px 12px;
-  border: 1px solid #bbb;
-  border-radius: 6px;
+  border: none;
+  border-radius: 12px;
   font-size: 14px;
-  background-color: #fff;
-  color: #222;
+  background: rgba(255, 255, 255, 0.9);
+  color: #1f2a38;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  outline: none;
 }
 
 .cadastro-os-form input:focus,
 .cadastro-os-form select:focus,
 .cadastro-os-form textarea:focus {
-  outline: none;
-  border-color: #666;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
 }
 
 .cadastro-os-form textarea {
@@ -113,17 +109,15 @@ body {
 }
 
 .checkbox-item label {
-  margin-top: 0;
-  margin-bottom: 0;
   display: flex;
   align-items: center;
   gap: 8px;
   font-weight: 600;
+  margin: 0;
 }
 
 .cadastro-os-form input[type="checkbox"] {
   width: auto;
-  margin-right: 0;
 }
 
 .acoes-cadastro-os {
@@ -131,18 +125,18 @@ body {
 }
 
 .acoes-cadastro-os button {
-  display: block;
   width: 100%;
   padding: 12px;
-  background-color: #222;
-  color: #fff;
   border: none;
-  border-radius: 6px;
-  font-size: 15px;
-  font-weight: bold;
+  border-radius: 50px;
   cursor: pointer;
+  font-weight: bold;
+  color: #fff;
+  background: linear-gradient(270deg, #3e3eb9, #3a3aff);
+  box-shadow: 0 6px 15px rgba(58, 58, 255, 0.4);
+  transition: 0.2s;
 }
 
 .acoes-cadastro-os button:hover {
-  background-color: #444;
+  transform: translateY(-3px);
 }

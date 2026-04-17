@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "../services/api";
 import "./DetalheOS.css";
+import { FaFilePdf, FaEdit } from 'react-icons/fa'
 
 export default function DetalheOS() {
   const [os, setOs] = useState(null);
@@ -12,15 +13,19 @@ export default function DetalheOS() {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  // const handleGerarPDF = () => {
+  //   window.open(`http://localhost:3001/ordens/${os.id}/pdf`, "_blank");
+  // };
+
   const handleGerarPDF = async () => {
     try {
       const response = await api.get(`/ordens/${os.id}/pdf`, {
         responseType: "blob",
       });
-  
+
       const file = new Blob([response.data], { type: "application/pdf" });
       const url = window.URL.createObjectURL(file);
-  
+
       window.open(url, "_blank");
     } catch (error) {
       console.error("Erro ao gerar PDF:", error);
@@ -104,11 +109,13 @@ export default function DetalheOS() {
               type="button"
               onClick={() => navigate(`/ordens/${os.id}/editar`)}
             >
+              <FaEdit />
               Editar
             </button>
           )}
 
           <button type="button" onClick={handleGerarPDF}>
+            <FaFilePdf  />
             Gerar PDF
           </button>
 

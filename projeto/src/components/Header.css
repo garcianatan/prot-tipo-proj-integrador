@@ -1,86 +1,127 @@
 .app-header {
     width: 100%;
-    background-color: #222;
-    color: #fff;
-    padding: 16px 24px;
+    padding: 22px 28px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.app-header-logo h1 {
-    margin: 0;
-    font-size: 24px;
-    font-weight: 700;
+  }
+  
+  .app-header-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    background: linear-gradient(90deg, #1111c0, #3a3aff);
     color: #fff;
-}
-
-.perfil-menu-wrapper {
+    border-radius: 60px;
+    padding: 16px 26px;
+    box-shadow: 0 8px 18px rgba(58, 58, 255, 0.4);
+  }
+  
+  .app-header-logo h1 {
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 2px;
+  }
+  
+  .app-header-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(270deg, #4a4acc, #4040f3);
+    border-radius: 10px;
+    color: white;
+    font-size: 16px;
+    box-shadow: 0 6px 15px rgba(58, 58, 255, 0.3);
+  }
+  
+  .perfil-menu-wrapper {
     position: relative;
-}
-
-.perfil-botao {
-    width: 42px;
-    height: 42px;
+    margin-left: 12px;
+  }
+  
+  .perfil-botao {
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     border: none;
-    background-color: #fff;
-    color: #222;
-    font-size: 16px;
+    background: linear-gradient(270deg, #3e3eb9, #3a3aff);
+    color: #fff;
+    font-size: 20px;
     font-weight: bold;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.perfil-botao:hover {
-    background-color: #eaeaea;
-}
-
-.perfil-dropdown {
+    box-shadow: 0 8px 18px rgba(58, 58, 255, 0.4);
+    transition: all 0.2s ease;
+  }
+  
+  .perfil-botao:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 12px 24px rgba(58, 58, 255, 0.5);
+  }
+  
+  .perfil-dropdown {
     position: absolute;
-    top: 50px;
+    top: 60px;
     right: 0;
-    min-width: 220px;
-    background-color: #fff;
-    border: 1px solid #dcdcdc;
-    border-radius: 8px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    min-width: 240px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 16px;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
     overflow: hidden;
     z-index: 1000;
-}
-
-.perfil-dropdown-topo {
-    padding: 14px 16px;
-    border-bottom: 1px solid #ececec;
+    animation: fadeIn 0.2s ease;
+  }
+  
+  .perfil-dropdown-topo {
+    padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 4px;
-}
-
-.perfil-dropdown-topo strong {
-    color: #111;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .perfil-dropdown-topo strong {
+    color: #1a1a5e;
     font-size: 14px;
-}
-
-.perfil-dropdown-topo span {
+  }
+  
+  .perfil-dropdown-topo span {
     color: #666;
-    font-size: 13px;
-    word-break: break-word;
-}
-
-.perfil-dropdown-item {
+    font-size: 12px;
+  }
+  
+  .perfil-dropdown-item {
     width: 100%;
-    border: none;
-    background: none;
-    text-align: left;
     padding: 12px 16px;
-    font-size: 14px;
-    color: #222;
+    background: none;
+    border: none;
+    text-align: left;
     cursor: pointer;
-}
-
-.perfil-dropdown-item:hover {
-    background-color: #f5f5f5;
-}
+    font-size: 14px;
+    transition: all 0.2s;
+    color: #2c3e50;
+    display: flex;
+    gap: 7px;
+  }
+  
+  .perfil-dropdown-item:hover {
+    background-color: #f5f7ff;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-5px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { FaCogs, FaSignOutAlt, FaUser } from "react-icons/fa";
 import "./Header.css";
 
 export default function Header({ usuario, onLogout }) {
@@ -25,7 +26,10 @@ export default function Header({ usuario, onLogout }) {
   return (
     <header className="app-header">
       <div className="app-header-logo">
-        <h1>FabLab</h1>
+        <span className="app-header-icon">
+          <FaCogs />
+        </span>
+        <h1>FABLAB</h1>
       </div>
 
       <div className="perfil-menu-wrapper" ref={menuRef}>
@@ -53,6 +57,7 @@ export default function Header({ usuario, onLogout }) {
                 navigate("/perfil");
               }}
             >
+              <FaUser />
               Meu perfil
             </button>
 
@@ -64,6 +69,7 @@ export default function Header({ usuario, onLogout }) {
                 onLogout();
               }}
             >
+              <FaSignOutAlt />
               Sair
             </button>
           </div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
 import "./ListaUsuarios.css";
+import { FaTrash, FaEdit, FaSignOutAlt } from "react-icons/fa";
 
 export default function ListaUsuarios() {
   const [usuarios, setUsuarios] = useState([]);
@@ -24,7 +25,6 @@ export default function ListaUsuarios() {
       const resposta = await api.get("/usuarios");
       setUsuarios(resposta.data);
     } catch (error) {
-      console.error(error);
       alert("Erro ao carregar usuários");
     }
   }
@@ -34,30 +34,25 @@ export default function ListaUsuarios() {
       alert("Você não pode desativar seu próprio usuário");
       return;
     }
-  
+
     const confirmar = window.confirm("Deseja realmente desativar este usuário?");
     if (!confirmar) return;
-  
+
     try {
       await api.put(`/usuarios/${id}/desativar`, {
         usuarioLogadoId: usuarioLogado.id
       });
-  
-      alert("Usuário desativado com sucesso");
       carregarUsuarios();
     } catch (error) {
-      console.error(error);
       alert(error?.response?.data?.erro || "Erro ao desativar usuário");
     }
   }
-  
+
   async function reativarUsuario(id) {
     try {
       await api.put(`/usuarios/${id}/reativar`);
-      alert("Usuário reativado com sucesso");
       carregarUsuarios();
     } catch (error) {
-      console.error(error);
       alert(error?.response?.data?.erro || "Erro ao reativar usuário");
     }
   }
@@ -74,11 +69,12 @@ export default function ListaUsuarios() {
           </div>
 
           <div className="topo-usuarios-acoes">
-            <button type="button" onClick={() => navigate("/usuarios/novo")}>
+            <button onClick={() => navigate("/usuarios/novo")}>
               Novo Usuário
             </button>
 
-            <button type="button" onClick={handleLogout}>
+            <button onClick={handleLogout} className="button-diversi">
+              <FaSignOutAlt />
               Sair
             </button>
           </div>
@@ -93,7 +89,7 @@ export default function ListaUsuarios() {
                 <th>Email</th>
                 <th>Tipo</th>
                 <th>Status</th>
-                <th>Data de cadastro</th>
+                <th>Data</th>
                 <th>Ações</th>
               </tr>
             </thead>
@@ -112,32 +108,23 @@ export default function ListaUsuarios() {
                     </td>
                     <td>
                       {usuario.created_at
-                        ? new Date(usuario.created_at).toLocaleString("pt-BR")
+                        ? new Date(usuario.created_at).toLocaleDateString("pt-BR")
                         : "-"}
                     </td>
                     <td>
                       <div className="acoes-tabela">
-                        <button
-                          type="button"
-                          onClick={() => navigate(`/usuarios/${usuario.id}/editar`)}
-                        >
-                          Editar
+                        <button onClick={() => navigate(`/usuarios/${usuario.id}/editar`)}>
+                          <FaEdit />
                         </button>
 
                         {usuario.ativo ? (
                           usuarioLogado?.id !== usuario.id && (
-                            <button
-                              type="button"
-                              onClick={() => desativarUsuario(usuario.id)}
-                            >
-                              Desativar
+                            <button onClick={() => desativarUsuario(usuario.id)} className="button-diversi">
+                              <FaTrash />
                             </button>
                           )
                         ) : (
-                          <button
-                            type="button"
-                            onClick={() => reativarUsuario(usuario.id)}
-                          >
+                          <button onClick={() => reativarUsuario(usuario.id)}>
                             Reativar
                           </button>
                         )}

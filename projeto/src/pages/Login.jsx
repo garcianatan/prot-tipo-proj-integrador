@@ -1,13 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../services/api";
-import imagemFundo from "../assets/img-fablab.jpg"
+import imagemFundo from "../assets/img-fablab.jpg";
 import "./Login.css";
+import { FaCogs } from "react-icons/fa";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
-
   const navigate = useNavigate();
 
   async function handleLogin(e) {
@@ -22,19 +22,31 @@ export default function Login() {
       localStorage.setItem("token", resposta.data.token);
       localStorage.setItem("usuario", JSON.stringify(resposta.data.usuario));
 
-      alert("Login realizado com sucesso");
       navigate("/");
     } catch (error) {
-      console.error(error);
       alert(error?.response?.data?.erro || "Erro ao realizar login");
     }
   }
 
   return (
-    <div className="container-login">
+    <div
+      className="container-login"
+      style={{ backgroundImage: `url(${imagemFundo})` }}
+    >
+      <div className="login-header">
+        <div className="login-logo">
+          <span className="login-logo-icon">
+            <FaCogs />
+          </span>
+          <span className="login-logo-text">FABLAB</span>
+        </div>
+      </div>
+
       <div className="overlay-login">
         <form className="form-login" onSubmit={handleLogin}>
-          <h2>Login</h2>
+          <div className="form-title">
+            <h2>Login</h2>
+          </div>
 
           <label>Email</label>
           <input
