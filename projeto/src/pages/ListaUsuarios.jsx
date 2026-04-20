@@ -8,15 +8,15 @@ export default function ListaUsuarios() {
   const [usuarios, setUsuarios] = useState([]);
   const navigate = useNavigate();
 
-  const usuarioLogado = JSON.parse(localStorage.getItem("usuario"));
+  const usuarioLogado = JSON.parse(sessionStorage.getItem("usuario"));
 
   useEffect(() => {
     carregarUsuarios();
   }, []);
 
   function handleLogout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("usuario");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("usuario");
     navigate("/login");
   }
 

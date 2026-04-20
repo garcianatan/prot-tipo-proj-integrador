@@ -89,7 +89,7 @@ export default function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const usuarioLogado = JSON.parse(localStorage.getItem("usuario"));
+    const usuarioLogado = JSON.parse(sessionStorage.getItem("usuario"));
 
     if (!usuarioLogado) {
       alert("Usuário não encontrado. Faça login novamente.");

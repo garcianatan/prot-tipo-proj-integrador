@@ -6,11 +6,11 @@ import "../App.css";
 
 export default function LayoutAdmin() {
   const navigate = useNavigate();
-  const usuarioLogado = JSON.parse(localStorage.getItem("usuario"));
+  const usuarioLogado = JSON.parse(sessionStorage.getItem("usuario"));
 
   function handleLogout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("usuario");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("usuario");
     navigate("/login");
   }
 

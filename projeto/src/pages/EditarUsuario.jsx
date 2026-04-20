@@ -7,7 +7,7 @@ export default function EditarUsuario() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const usuarioLogado = JSON.parse(localStorage.getItem("usuario"));
+  const usuarioLogado = JSON.parse(sessionStorage.getItem("usuario"));
 
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");

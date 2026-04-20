@@ -2,8 +2,8 @@
 import { Navigate } from "react-router-dom";
 
 export default function HomeRedirect() {
-  const token = localStorage.getItem("token");
-  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const token = sessionStorage.getItem("token");
+  const usuario = JSON.parse(sessionStorage.getItem("usuario"));
 
   if (!token) {
     return <Navigate to="/login" replace />;

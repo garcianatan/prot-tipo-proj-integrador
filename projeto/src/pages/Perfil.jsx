@@ -5,7 +5,7 @@ import "./Perfil.css";
 
 export default function Perfil() {
   const navigate = useNavigate();
-  const usuarioLogado = JSON.parse(localStorage.getItem("usuario"));
+  const usuarioLogado = JSON.parse(sessionStorage.getItem("usuario"));
 
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
@@ -50,7 +50,7 @@ export default function Perfil() {
         tipo
       };
 
-      localStorage.setItem("usuario", JSON.stringify(usuarioAtualizado));
+      sessionStorage.setItem("usuario", JSON.stringify(usuarioAtualizado));
 
       alert("Perfil atualizado com sucesso");
       navigate("/");

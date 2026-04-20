@@ -19,8 +19,8 @@ export default function Login() {
         senha
       });
 
-      localStorage.setItem("token", resposta.data.token);
-      localStorage.setItem("usuario", JSON.stringify(resposta.data.usuario));
+      sessionStorage.setItem("token", resposta.data.token);
+      sessionStorage.setItem("usuario", JSON.stringify(resposta.data.usuario));
 
       navigate("/");
     } catch (error) {
