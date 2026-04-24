@@ -177,3 +177,58 @@ td:nth-child(7) {
   width: 170px !important;
   text-align: center !important;
 }
+
+.toast-confirmacao {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 280px;
+}
+
+.toast-confirmacao-titulo {
+  font-size: 15px;
+  color: #111;
+}
+
+.toast-confirmacao-texto {
+  font-size: 14px;
+  color: #444;
+  line-height: 1.4;
+}
+
+.toast-confirmacao-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.toast-btn {
+  width: auto;
+  margin-top: 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.toast-btn-cancelar {
+  background-color: #fff;
+  color: #222;
+  border: 1px solid #cfcfcf;
+}
+
+.toast-btn-cancelar:hover {
+  background-color: #f3f3f3;
+}
+
+.toast-btn-desativar {
+  background-color: #c62828;
+  color: #fff;
+  border: none;
+}
+
+.toast-btn-desativar:hover {
+  background-color: #a91f1f;
+}

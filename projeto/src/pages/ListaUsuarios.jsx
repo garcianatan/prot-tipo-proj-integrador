@@ -30,21 +30,78 @@ export default function ListaUsuarios() {
     }
   }
 
+  function confirmarDesativacao(id) {
+  toast(
+    (t) => (
+      <div className="toast-confirmacao">
+        <strong className="toast-confirmacao-titulo">
+          ⚠️ Desativar usuário
+        </strong>
+
+        <span className="toast-confirmacao-texto">
+          Deseja realmente desativar este usuário?
+        </span>
+
+        <div className="toast-confirmacao-acoes">
+          <button
+            type="button"
+            className="toast-btn toast-btn-cancelar"
+            onClick={() => toast.dismiss(t.id)}
+          >
+            Cancelar
+          </button>
+
+          <button
+            type="button"
+            className="toast-btn toast-btn-desativar"
+            onClick={async () => {
+              toast.dismiss(t.id);
+              await desativarUsuarioConfirmado(id);
+            }}
+          >
+            Desativar
+          </button>
+        </div>
+      </div>
+    ),
+    {
+      duration: 8000,
+      position: "top-center"
+    }
+  );
+}
+
   async function desativarUsuario(id) {
     if (usuarioLogado?.id === id) {
       toast.error("Você não pode desativar seu próprio usuário");
       return;
     }
 
-    const confirmar = window.confirm("Deseja realmente desativar este usuário?");
-    if (!confirmar) return;
+    confirmarDesativacao(id);
 
+    // const confirmar = window.confirm("Deseja realmente desativar este usuário?");
+    // if (!confirmar) return;
+
+    // try {
+    //   await api.put(`/usuarios/${id}/desativar`, {
+    //     usuarioLogadoId: usuarioLogado.id
+    //   });
+    //   carregarUsuarios();
+    // } catch (error) {
+    //   toast.error(error?.response?.data?.erro || "Erro ao desativar usuário");
+    // }
+  }
+
+  async function desativarUsuarioConfirmado(id) {
     try {
       await api.put(`/usuarios/${id}/desativar`, {
         usuarioLogadoId: usuarioLogado.id
       });
+
+      toast.success("Usuário desativado com sucesso");
       carregarUsuarios();
     } catch (error) {
+      console.error(error);
       toast.error(error?.response?.data?.erro || "Erro ao desativar usuário");
     }
   }
