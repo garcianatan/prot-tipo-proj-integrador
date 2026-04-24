@@ -4,9 +4,13 @@ import api from "../services/api";
 import "./ListaUsuarios.css";
 import { FaTrash, FaEdit, FaSignOutAlt } from "react-icons/fa";
 import toast from "react-hot-toast";
+import ConfirmModal from "../components/ConfirmModal";
 
 export default function ListaUsuarios() {
   const [usuarios, setUsuarios] = useState([]);
+  const [modalAberto, setModalAberto] = useState(false);
+  const [usuarioSelecionado, setUsuarioSelecionado] = useState(null);
+
   const navigate = useNavigate();
 
   const usuarioLogado = JSON.parse(sessionStorage.getItem("usuario"));
@@ -30,75 +34,27 @@ export default function ListaUsuarios() {
     }
   }
 
-  function confirmarDesativacao(id) {
-  toast(
-    (t) => (
-      <div className="toast-confirmacao">
-        <strong className="toast-confirmacao-titulo">
-          ⚠️ Desativar usuário
-        </strong>
-
-        <span className="toast-confirmacao-texto">
-          Deseja realmente desativar este usuário?
-        </span>
-
-        <div className="toast-confirmacao-acoes">
-          <button
-            type="button"
-            className="toast-btn toast-btn-cancelar"
-            onClick={() => toast.dismiss(t.id)}
-          >
-            Cancelar
-          </button>
-
-          <button
-            type="button"
-            className="toast-btn toast-btn-desativar"
-            onClick={async () => {
-              toast.dismiss(t.id);
-              await desativarUsuarioConfirmado(id);
-            }}
-          >
-            Desativar
-          </button>
-        </div>
-      </div>
-    ),
-    {
-      duration: 8000,
-      position: "top-center"
-    }
-  );
-}
-
-  async function desativarUsuario(id) {
+  function desativarUsuario(id) {
     if (usuarioLogado?.id === id) {
       toast.error("Você não pode desativar seu próprio usuário");
       return;
     }
 
-    confirmarDesativacao(id);
-
-    // const confirmar = window.confirm("Deseja realmente desativar este usuário?");
-    // if (!confirmar) return;
-
-    // try {
-    //   await api.put(`/usuarios/${id}/desativar`, {
-    //     usuarioLogadoId: usuarioLogado.id
-    //   });
-    //   carregarUsuarios();
-    // } catch (error) {
-    //   toast.error(error?.response?.data?.erro || "Erro ao desativar usuário");
-    // }
+    setUsuarioSelecionado(id);
+    setModalAberto(true);
   }
 
-  async function desativarUsuarioConfirmado(id) {
+  async function confirmarDesativacao() {
+    if (!usuarioSelecionado) return;
+
     try {
-      await api.put(`/usuarios/${id}/desativar`, {
+      await api.put(`/usuarios/${usuarioSelecionado}/desativar`, {
         usuarioLogadoId: usuarioLogado.id
       });
 
       toast.success("Usuário desativado com sucesso");
+      setModalAberto(false);
+      setUsuarioSelecionado(null);
       carregarUsuarios();
     } catch (error) {
       console.error(error);
@@ -106,11 +62,18 @@ export default function ListaUsuarios() {
     }
   }
 
+  function fecharModal() {
+    setModalAberto(false);
+    setUsuarioSelecionado(null);
+  }
+
   async function reativarUsuario(id) {
     try {
       await api.put(`/usuarios/${id}/reativar`);
+      toast.success("Usuário reativado com sucesso");
       carregarUsuarios();
     } catch (error) {
+      console.error(error);
       toast.error(error?.response?.data?.erro || "Erro ao reativar usuário");
     }
   }
@@ -199,6 +162,15 @@ export default function ListaUsuarios() {
           </table>
         </div>
       </div>
+      <ConfirmModal
+        aberto={modalAberto}
+        titulo="⚠️ Desativar usuário"
+        mensagem="Deseja realmente desativar este usuário?"
+        textoConfirmar="Desativar"
+        textoCancelar="Cancelar"
+        onConfirm={confirmarDesativacao}
+        onCancel={fecharModal}
+      />
     </div>
   );
 }

@@ -29,7 +29,7 @@ export default function Header({ usuario, onLogout }) {
         <span className="app-header-icon">
           <FaCogs />
         </span>
-        <h1>FABLAB</h1>
+        <h1>FABLAB - Maracanã</h1>
       </div>
 
       <div className="perfil-menu-wrapper" ref={menuRef}>
