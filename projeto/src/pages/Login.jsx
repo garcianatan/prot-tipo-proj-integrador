@@ -41,7 +41,7 @@ export default function Login() {
           <span className="login-logo-icon">
             <FaCogs />
           </span>
-          <span className="login-logo-text">FABLAB</span>
+          <span className="login-logo-text">FABLAB - Maracanã</span>
         </div>
       </div>
 
