@@ -331,12 +331,13 @@ const gerarPDFOrdem = async (req, res) => {
 
 const exportarListaPdf = async (req, res) => {
   try {
-    const { projeto, status, data } = req.query;
+    const { projeto, status, dataInicio, dataFim  } = req.query;
 
     const filtros = {
       projeto: projeto || "",
       status: status || "",
-      data: data || ""
+      dataInicio: dataInicio || "",
+      dataFim: dataFim || ""
     };
 
     const resumo = await osModel.buscarResumoListaPdf(filtros);
@@ -362,7 +363,8 @@ const exportarListaPdf = async (req, res) => {
     doc.moveDown();
     doc.fontSize(11).text(`Projeto: ${projeto || "Todos"}`);
     doc.text(`Status: ${status || "Todos"}`);
-    doc.text(`Data: ${data || "Todas"}`);
+    doc.text(`Data inicial: ${dataInicio || "Todas"}`);
+    doc.text(`Data final: ${dataFim || "Todas"}`);
     doc.moveDown();
 
     doc.fontSize(13).text("Resumo");

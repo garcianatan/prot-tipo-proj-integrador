@@ -171,7 +171,7 @@ const atualizarStatus = async (id, dados) => {
   return resultado;
 };
 
-function montarFiltrosLista({ projeto, status, data }) {
+function montarFiltrosLista({ projeto, status, dataInicio, dataFim }) {
   const filtros = [];
   const params = [];
 
@@ -185,9 +185,14 @@ function montarFiltrosLista({ projeto, status, data }) {
     params.push(status);
   }
 
-  if (data) {
-    filtros.push("DATE(os.data_lancamento) = ?");
-    params.push(data);
+  if (dataInicio) {
+    filtros.push("DATE(os.data_lancamento) >= ?");
+    params.push(dataInicio);
+  }
+
+  if (dataFim) {
+    filtros.push("DATE(os.data_lancamento) <= ?");
+    params.push(dataFim);
   }
 
   const where = filtros.length > 0

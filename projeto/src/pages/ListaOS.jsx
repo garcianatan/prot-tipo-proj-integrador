@@ -9,7 +9,8 @@ export default function ListaOS() {
   const [ordens, setOrdens] = useState([]);
   const [filtroProjeto, setFiltroProjeto] = useState("");
   const [filtroStatus, setFiltroStatus] = useState("");
-  const [filtroData, setFiltroData] = useState("");
+  const [filtroDataInicio, setFiltroDataInicio] = useState("");
+  const [filtroDataFim, setFiltroDataFim] = useState("");
 
   const navigate = useNavigate();
 
@@ -35,7 +36,8 @@ export default function ListaOS() {
         params: {
           projeto: filtroProjeto,
           status: filtroStatus,
-          data: filtroData
+          dataInicio: filtroDataInicio,
+          dataFim: filtroDataFim
         },
         responseType: "blob"
       });
@@ -74,13 +76,19 @@ export default function ListaOS() {
 
       const statusOk = filtroStatus ? os.status === filtroStatus : true;
 
-      const dataOk = filtroData
-        ? formatarDataParaInput(os.data_lancamento) === filtroData
+      const dataOS = formatarDataParaInput(os.data_lancamento);
+
+      const dataInicioOk = filtroDataInicio
+        ? dataOS >=  filtroDataInicio
         : true;
 
-      return projetoOk && statusOk && dataOk;
+      const dataFimOk = filtroDataFim
+        ? dataOS <=  filtroDataFim
+        : true;
+
+      return projetoOk && statusOk && dataInicioOk && dataFimOk;
     });
-  }, [ordens, filtroProjeto, filtroStatus, filtroData]);
+  }, [ordens, filtroProjeto, filtroStatus, filtroDataInicio, filtroDataFim]);
 
   const resumo = useMemo(() => {
     return ordensFiltradas.reduce(
@@ -156,11 +164,20 @@ export default function ListaOS() {
           </div>
 
           <div className="campo-filtro">
-            <label>Filtrar por data</label>
+            <label>Data inicial</label>
             <input
               type="date"
-              value={filtroData}
-              onChange={(e) => setFiltroData(e.target.value)}
+              value={filtroDataInicio}
+              onChange={(e) => setFiltroDataInicio(e.target.value)}
+            />
+          </div>
+
+          <div className="campo-filtro">
+            <label>Data final</label>
+            <input
+              type="date"
+              value={filtroDataFim}
+              onChange={(e) => setFiltroDataFim(e.target.value)}
             />
           </div>
         </div>
