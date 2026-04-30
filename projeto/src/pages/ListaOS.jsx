@@ -11,6 +11,7 @@ export default function ListaOS() {
   const [filtroStatus, setFiltroStatus] = useState("");
   const [filtroDataInicio, setFiltroDataInicio] = useState("");
   const [filtroDataFim, setFiltroDataFim] = useState("");
+  const [paginaDigitada, setPaginaDigitada] = useState("1");
 
   const [resumo, setResumo] = useState({
     total: 0,
@@ -31,12 +32,12 @@ export default function ListaOS() {
 
   useEffect(() => {
     carregarOrdens({
-    page: 1,
-    projeto: "",
-    status: "",
-    dataInicio: "",
-    dataFim: ""
-  });
+      page: 1,
+      projeto: "",
+      status: "",
+      dataInicio: "",
+      dataFim: ""
+    });
   }, []);
 
   async function carregarOrdens({
@@ -71,6 +72,7 @@ export default function ListaOS() {
         }
       );
       setPaginaAtual(resposta.data.paginacao?.page || 1);
+      setPaginaDigitada(String(resposta.data.paginacao?.page || 1));
       setTotalPaginas(resposta.data.paginacao?.totalPages || 1);
       setTotalItens(resposta.data.paginacao?.total || 0);
     } catch (error) {
@@ -82,20 +84,21 @@ export default function ListaOS() {
   }
 
   function aplicarFiltros() {
-  carregarOrdens({
-    page: 1,
-    projeto: filtroProjeto,
-    status: filtroStatus,
-    dataInicio: filtroDataInicio,
-    dataFim: filtroDataFim
-  });
-}
+    carregarOrdens({
+      page: 1,
+      projeto: filtroProjeto,
+      status: filtroStatus,
+      dataInicio: filtroDataInicio,
+      dataFim: filtroDataFim
+    });
+  }
 
   function limparFiltros() {
     setFiltroProjeto("");
     setFiltroStatus("");
     setFiltroDataInicio("");
     setFiltroDataFim("");
+    setPaginaDigitada("1");
 
     carregarOrdens({
       page: 1,
@@ -137,25 +140,49 @@ export default function ListaOS() {
   function irParaPaginaAnterior() {
     if (paginaAtual > 1) {
       carregarOrdens({
-      page: paginaAtual - 1,
-      projeto: filtroProjeto,
-      status: filtroStatus,
-      dataInicio: filtroDataInicio,
-      dataFim: filtroDataFim
-    });
+        page: paginaAtual - 1,
+        projeto: filtroProjeto,
+        status: filtroStatus,
+        dataInicio: filtroDataInicio,
+        dataFim: filtroDataFim
+      });
     }
   }
 
   function irParaProximaPagina() {
     if (paginaAtual < totalPaginas) {
       carregarOrdens({
-      page: paginaAtual + 1,
+        page: paginaAtual + 1,
+        projeto: filtroProjeto,
+        status: filtroStatus,
+        dataInicio: filtroDataInicio,
+        dataFim: filtroDataFim
+      });
+    }
+  }
+
+  function irParaPaginaDigitada() {
+    let pagina = Number(paginaDigitada);
+
+    if (!pagina || isNaN(pagina)) {
+      pagina = 1;
+    }
+
+    if (pagina < 1) {
+      pagina = 1;
+    }
+
+    if (pagina > totalPaginas) {
+      pagina = totalPaginas;
+    }
+
+    carregarOrdens({
+      page: pagina,
       projeto: filtroProjeto,
       status: filtroStatus,
       dataInicio: filtroDataInicio,
       dataFim: filtroDataFim
     });
-    }
   }
 
   // function formatarDataParaInput(dataString) {
@@ -380,9 +407,31 @@ export default function ListaOS() {
             ←
           </button>
 
-          <span>
-            Página {paginaAtual} de {totalPaginas}
-          </span>
+          <div className="paginacao-centro">
+            <span className="texto-pagina">Página</span>
+
+            <div className="caixa-paginacao">
+              <input
+                type="number"
+                min="1"
+                max={totalPaginas}
+                value={paginaDigitada}
+                onChange={(e) => setPaginaDigitada(e.target.value)}
+                onBlur={irParaPaginaDigitada}
+                onWheel={(e) => e.target.blur()}
+                onKeyDown={(e) => {
+                  if (["e", "E", "+", "-"].includes(e.key)) {
+                    e.preventDefault();
+                  }
+
+                  if (e.key === "Enter") {
+                    irParaPaginaDigitada();
+                  }
+                }}
+              />
+              <span>/ {totalPaginas}</span>
+            </div>
+          </div>
 
           <button
             type="button"
