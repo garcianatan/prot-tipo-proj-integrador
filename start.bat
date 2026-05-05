@@ -1,7 +1,7 @@
 @echo off
 title Projeto Integrador SENAI
 
-echo Iniciando Backend...
+echo Iniciando Backend e Frontend...
 
 start "BACKEND" /min cmd /k "cd /d %~dp0backend\src && node server.js"
 
