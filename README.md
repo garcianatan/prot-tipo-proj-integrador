@@ -292,3 +292,10 @@ O backend utiliza a biblioteca `pdfkit` para gerar arquivos PDF. O sistema permi
 ## 👨‍💻 Autor
 
 Projeto desenvolvido como parte do curso técnico em Desenvolvimento de Sistemas do SENAI.
+Integrantes: 
+Erick Teixeira Matheus,
+Jhonatan Ribeiro de Oliveira,
+Lucas Ribeiro de Paulo,
+Natan Garcia Rodrigues,
+Pedro Nascimento Galvão,
+Vitória Conceição da Silva. 
