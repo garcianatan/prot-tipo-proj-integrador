@@ -51,7 +51,7 @@ export default function Login() {
             <h2>Login</h2>
           </div>
 
-          <label>Email</label>
+          <label>E-mail</label>
           <input
             type="email"
             value={email}
