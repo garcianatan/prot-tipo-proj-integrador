@@ -260,7 +260,10 @@ const gerarPDFOrdem = async (req, res) => {
       `inline; filename=ordem_${id}.pdf`
     );
 
-    const doc = new PDFDocument();
+    const doc = new PDFDocument({
+      margin: 40,
+      size: "A4"
+    });
     doc.pipe(res);
 
     function escreverCampo(label, valor) {
@@ -310,7 +313,7 @@ const gerarPDFOrdem = async (req, res) => {
 
       const y = doc.y + 5;
       doc
-        .moveTo(50, y)
+        .moveTo(40, y)
         .lineTo(545, y)
         .strokeColor("#bdbdbd")
         .stroke();
@@ -405,28 +408,103 @@ const exportarListaPdf = async (req, res) => {
 
     doc.pipe(res);
 
-    doc.fontSize(18).text("Relatorio de Ordens de Servico", {
-      align: "center"
-    });
+    function escreverCampo(label, valor) {
+      if (
+        valor === null ||
+        valor === undefined ||
+        String(valor).trim() === "" ||
+        valor === "-"
+      ) {
+        return;
+      }
+      doc
+        .font("Helvetica-Bold")
+        .fontSize(12)
+        .text(`${label}: `, { continued: true })
+        .font("Helvetica")
+        .text(valor || "-");
+      
+      doc.moveDown(0.8);
+    }
 
-    doc.moveDown();
-    doc.fontSize(11).text(`Projeto: ${projeto || "Todos"}`);
-    doc.text(`Status: ${status || "Todos"}`);
-    doc.text(`Data inicial: ${dataInicio || "Todas"}`);
-    doc.text(`Data final: ${dataFim || "Todas"}`);
-    doc.moveDown();
+    function escreverData(label, valor) {
+      if (
+        valor === null ||
+        valor === undefined ||
+        String(valor).trim() === "" ||
+        valor === "-"
+      ) {
+        return;
+      }
 
-    doc.fontSize(13).text("Resumo");
-    doc.moveDown(0.5);
-    doc.fontSize(11).text(`Total: ${resumo.total || 0}`);
-    doc.text(`Pendentes: ${resumo.pendentes || 0}`);
-    doc.text(`Aprovadas: ${resumo.aprovadas || 0}`);
-    doc.text(`Recusadas: ${resumo.recusadas || 0}`);
-    doc.text(`Finalizadas: ${resumo.finalizadas || 0}`);
-    doc.moveDown();
+      let textoFinal = valor;
 
-    doc.fontSize(13).text("Ordens encontradas");
-    doc.moveDown(0.5);
+      const dataFormatada = new Date(valor);
+
+      if(!isNaN(dataFormatada.getTime())) {
+        textoFinal = dataFormatada.toLocaleDateString("pt-BR");
+      }
+      
+      doc
+        .font("Helvetica-Bold")
+        .fontSize(12)
+        .text(`${label}: `, { continued: true })
+        .font("Helvetica")
+        .text(textoFinal);
+      
+      doc.moveDown(0.8);
+    }
+
+    function tituloSecao(titulo) {
+      doc
+        .font("Helvetica-Bold")
+        .fontSize(16)
+        .text(titulo);
+
+      const y = doc.y + 5;
+      doc
+        .moveTo(40, y)
+        .lineTo(545, y)
+        .strokeColor("#bdbdbd")
+        .stroke();
+      
+      doc.moveDown(1.2);
+    }
+
+    doc
+      .font("Helvetica-Bold")
+      .fontSize(18)
+      .text("Relatório de Ordens de Serviço", { align: "center" });
+    
+    doc.moveDown(1.2);
+
+    const y = doc.y;
+    doc
+      .moveTo(40, y)
+      .lineTo(545, y)
+      .strokeColor("#bdbdbd")
+      .stroke();
+
+    doc.moveDown(1.2);
+
+    escreverCampo("Projeto", `${projeto || "Todos"}`);
+    escreverCampo("Status", `${status || "Todos"}`);
+    escreverData("Data inicial", `${dataInicio || "Todas"}`);
+    escreverData("Data final", `${dataFim || "Todas"}`);
+
+    doc.moveDown(1.5);
+
+    tituloSecao("Resumo");
+
+    escreverCampo("Total", `${resumo.total || 0}`);
+    escreverCampo("Pendentes", `${resumo.pendentes || 0}`);
+    escreverCampo("Aprovadas", `${resumo.aprovadas || 0}`);
+    escreverCampo("Recusadas", `${resumo.recusadas || 0}`);
+    escreverCampo("Finalizadas", `${resumo.finalizadas || 0}`);
+
+    doc.moveDown(1.5);
+
+    tituloSecao("Ordens Encontradas");
 
     if (!itens.length) {
       doc.fontSize(11).text("Nenhuma ordem encontrada.");
@@ -443,7 +521,7 @@ const exportarListaPdf = async (req, res) => {
 
     function desenharCabecalhoTabela() {
       const y = doc.y;
-      doc.font("Helvetica-Bold").fontSize(9);
+      doc.font("Helvetica-Bold").fontSize(12);
       doc.text("ID", colunas.id, y);
       doc.text("Projeto", colunas.projeto, y, { width: 220 });
       doc.text("Status", colunas.status, y, { width: 80 });
@@ -463,7 +541,7 @@ const exportarListaPdf = async (req, res) => {
       const y = doc.y;
       const dataFormatada = new Date(os.data_lancamento).toLocaleDateString("pt-BR");
 
-      doc.fontSize(8);
+      doc.fontSize(10);
       doc.text(String(os.id), colunas.id, y, { width: 35 });
       doc.text(os.nome_projeto || "-", colunas.projeto, y, { width: 220 });
       doc.text(os.status || "-", colunas.status, y, { width: 80 });
