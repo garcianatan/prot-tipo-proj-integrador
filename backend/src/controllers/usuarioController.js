@@ -143,6 +143,12 @@ const alterarSenhaUsuario = async (req, res) => {
       return res.status(400).json({ erro: "Nova senha é obrigatória" });
     }
 
+    if (novaSenha.trim().length < 6) {
+      return res.status(400).json({
+        erro: "A senha deve ter no mínimo 6 caracteres"
+      });
+    }
+
     const usuario = await usuarioModel.buscarPorId(id);
 
     if (!usuario) {
@@ -245,6 +251,12 @@ const alterarMinhaSenha = async (req, res) => {
     if (!novaSenha || !novaSenha.trim()) {
       return res.status(400).json({
         erro: "Nova senha é obrigatória"
+      });
+    }
+
+    if (novaSenha.trim().length < 6) {
+      return res.status(400).json({
+        erro: "A senha deve ter no mínimo 6 caracteres"
       });
     }
 

@@ -12,6 +12,12 @@ const cadastrar = async (req, res) => {
       });
     }
 
+    if (senha.trim().length < 6) {
+      return res.status(400).json({
+        erro: "A senha deve ter no mínimo 6 caracteres"
+      });
+    }
+
     const usuarioExistente = await usuarioModel.buscarPorEmail(email);
 
     if (usuarioExistente) {

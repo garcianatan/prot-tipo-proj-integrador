@@ -14,7 +14,7 @@ export default function CadastroUsuario() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-
+    
     try {
       const resposta = await api.post("/auth/register", {
         nome: nome.trim(),
@@ -58,6 +58,7 @@ export default function CadastroUsuario() {
           value={senha}
           onChange={(e) => setSenha(e.target.value)}
           required
+          minLength={6}
         />
 
         <label>Tipo</label>

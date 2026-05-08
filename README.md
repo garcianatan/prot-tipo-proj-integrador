@@ -124,7 +124,7 @@ Após executar o script, será criado um usuário administrador padrão:
 
 ```txt
 E-mail: admin@admin.com
-Senha: 1234
+Senha: 123456
 ```
 
 > Recomenda-se alterar essa senha após o primeiro acesso.

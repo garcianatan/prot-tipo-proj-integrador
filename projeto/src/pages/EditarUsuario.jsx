@@ -100,6 +100,7 @@ export default function EditarUsuario() {
           value={novaSenha}
           onChange={(e) => setNovaSenha(e.target.value)}
           placeholder="Preencha apenas se quiser alterar"
+          minLength={6}
         />
 
         <div className="acoes-cadastro-usuario">
