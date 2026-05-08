@@ -98,7 +98,7 @@ export default function EditarUsuario() {
         <input
           type="password"
           value={novaSenha}
-          onChange={(e) => setNovaSenha(e.target.value)}
+          onChange={(e) => setNovaSenha(e.target.value.replace(/\s/g, ""))}
           placeholder="Preencha apenas se quiser alterar"
           minLength={6}
         />

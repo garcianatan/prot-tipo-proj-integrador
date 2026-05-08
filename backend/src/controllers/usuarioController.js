@@ -139,7 +139,7 @@ const alterarSenhaUsuario = async (req, res) => {
     const { id } = req.params;
     const { novaSenha } = req.body;
 
-    if (!novaSenha) {
+    if (!novaSenha?.trim()) {
       return res.status(400).json({ erro: "Nova senha é obrigatória" });
     }
 

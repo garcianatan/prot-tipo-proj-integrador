@@ -56,7 +56,7 @@ export default function CadastroUsuario() {
         <input
           type="password"
           value={senha}
-          onChange={(e) => setSenha(e.target.value)}
+          onChange={(e) => setSenha(e.target.value.replace(/\s/g, ""))}
           required
           minLength={6}
         />

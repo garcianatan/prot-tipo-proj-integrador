@@ -6,7 +6,7 @@ const cadastrar = async (req, res) => {
   try {
     const { nome, email, senha, tipo } = req.body;
 
-    if (!nome || !email || !senha) {
+    if (!nome?.trim() || !email?.trim() || !senha?.trim()) {
       return res.status(400).json({
         erro: "Nome, email e senha são obrigatórios"
       });
